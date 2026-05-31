@@ -1,24 +1,66 @@
 <!doctype html>
 <html lang="zh-CN">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>学生周报生成器</title>
-    <script type="module">
-      if (import.meta.hot?.on) {
-        import.meta.hot.on('vite:error', (error) => {
-          if (error.err) {
-            console.error(
-              [error.err.message, error.err.frame].filter(Boolean).join('\n'),
-            )
-          }
-        })
-      }
-    </script>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>学生周报生成器</title>
+  <style>
+    :root{font-family:"Microsoft YaHei","PingFang SC","Hiragino Sans GB",sans-serif;color:#12372f;background:#ecfdf5}*{box-sizing:border-box}body{margin:0;min-width:320px;min-height:100vh;background:radial-gradient(circle at top left,#d9f99d 0,#ecfdf5 30%,#f7fee7 62%,#fff 100%)}button,input{font:inherit}button{cursor:pointer}.page{position:relative;max-width:1280px;margin:0 auto;min-height:100vh;padding:32px 48px;overflow:hidden}.glow{position:absolute;border-radius:999px;filter:blur(70px);pointer-events:none}.g1{left:-110px;top:-110px;width:320px;height:320px;background:rgba(110,231,183,.35)}.g2{right:-130px;bottom:-160px;width:390px;height:390px;background:rgba(217,249,157,.7)}.grid-bg{position:absolute;inset:0;background-image:linear-gradient(rgba(22,101,52,.055) 1px,transparent 1px),linear-gradient(90deg,rgba(22,101,52,.055) 1px,transparent 1px);background-size:42px 42px}.top{position:relative;z-index:1;display:flex;justify-content:space-between;gap:16px;margin-bottom:36px}.pill{display:inline-flex;align-items:center;border:1px solid #bbf7d0;background:rgba(255,255,255,.72);padding:10px 20px;border-radius:999px;font-size:14px;font-weight:700;color:#065f46;box-shadow:0 16px 35px rgba(6,78,59,.06);backdrop-filter:blur(16px)}.dark-pill{background:#059669;color:#fff;box-shadow:0 18px 36px rgba(4,120,87,.22)}.layout{position:relative;z-index:1;display:grid;grid-template-columns:.82fr 1.18fr;align-items:center;gap:32px}.hero{display:flex;flex-direction:column;gap:30px}.tag{width:max-content;background:rgba(255,255,255,.75);color:#047857;border:1px solid #d1fae5;border-radius:999px;padding:9px 20px;font-weight:800;box-shadow:0 18px 36px rgba(6,78,59,.06)}h1{margin:0;max-width:640px;font-size:clamp(48px,6vw,76px);line-height:.98;letter-spacing:-.055em;color:#022c22}p{margin:0}.desc{max-width:580px;font-size:18px;line-height:1.8;color:rgba(6,78,59,.72)}.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.step{padding:20px;border:1px solid rgba(255,255,255,.85);border-radius:32px;background:rgba(255,255,255,.66);box-shadow:0 18px 40px rgba(6,78,59,.08);backdrop-filter:blur(16px);transition:.2s}.step:hover{transform:translateY(-4px);box-shadow:0 24px 56px rgba(6,78,59,.12)}.num{font-size:12px;font-weight:900;letter-spacing:.3em;color:#65a30d}.step-name{margin-top:8px;font-weight:800;color:#022c22}.tool{display:grid;grid-template-columns:.85fr 1.15fr;gap:24px}.card{border:1px solid rgba(255,255,255,.86);border-radius:36px;background:rgba(255,255,255,.82);padding:28px;box-shadow:0 28px 80px rgba(6,78,59,.16);backdrop-filter:blur(22px)}.card-head{display:flex;align-items:center;gap:14px;margin-bottom:26px}.icon{display:flex;align-items:center;justify-content:center;width:56px;height:56px;border-radius:24px;background:linear-gradient(135deg,#34d399,#14b8a6);color:white;box-shadow:0 18px 36px rgba(16,185,129,.26);font-size:24px}.small{font-size:14px;color:rgba(6,78,59,.58)}h2{margin:0;color:#022c22;font-size:26px;letter-spacing:-.04em}.form-fields{display:grid;gap:20px}label span{display:block;margin-bottom:8px;font-size:14px;font-weight:800;color:#047857}input{width:100%;border:1px solid #d1fae5;background:rgba(236,253,245,.62);border-radius:24px;padding:16px 20px;font-weight:700;color:#022c22;outline:none;box-shadow:inset 0 3px 10px rgba(6,78,59,.05);transition:.2s}input:focus{border-color:#6ee7b7;background:#fff;box-shadow:0 0 0 4px rgba(167,243,208,.7),inset 0 3px 10px rgba(6,78,59,.04)}.primary{width:100%;margin-top:26px;border:0;border-radius:24px;background:linear-gradient(90deg,#10b981,#14b8a6);color:#fff;padding:17px 20px;font-weight:900;box-shadow:0 24px 48px rgba(5,150,105,.25);transition:.2s}.primary:hover,.copy:hover,.clear:hover{transform:translateY(-3px)}.error{margin-top:20px;border:1px solid #ffe4e6;background:#fff1f2;color:#be123c;border-radius:24px;padding:15px 18px;font-size:14px;font-weight:800}.result-card{display:flex;flex-direction:column;min-height:480px}.result-top,.history-top{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:24px}.copy{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:0;border-radius:24px;background:#059669;color:#fff;padding:12px 20px;font-size:14px;font-weight:900;box-shadow:0 16px 32px rgba(4,120,87,.2);transition:.2s}.copy:disabled,.clear:disabled{cursor:not-allowed;opacity:.45;transform:none}.result-box{display:flex;flex:1;min-height:260px;border:1px solid #d1fae5;border-radius:32px;background:linear-gradient(135deg,#ecfdf5,#f7fee7);padding:24px;box-shadow:inset 0 4px 14px rgba(6,78,59,.08)}.report-text{white-space:pre-wrap;font-size:18px;line-height:1.9;color:#022c22}.empty{margin:auto;text-align:center;color:rgba(6,78,59,.62)}.empty-icon{display:flex;align-items:center;justify-content:center;margin:0 auto 16px;width:64px;height:64px;border-radius:28px;background:#fff;color:#059669;font-size:30px;box-shadow:0 18px 36px rgba(6,78,59,.1)}.status{min-height:24px;margin-top:16px;font-size:14px;font-weight:800}.success{color:#047857}.fail{color:#be123c}.history{grid-column:1/-1}.muted-title{font-size:14px;font-weight:800;color:#65a30d}.clear{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:1px solid #d1fae5;border-radius:24px;background:#fff;color:#065f46;padding:12px 18px;font-size:14px;font-weight:900;box-shadow:0 14px 30px rgba(6,78,59,.08);transition:.2s}.search-wrap{position:relative}.search-wrap input{padding-left:48px}.search-icon{position:absolute;left:20px;top:50%;transform:translateY(-50%);color:rgba(4,120,87,.56)}.list{display:grid;gap:16px;max-height:384px;overflow:auto;margin-top:20px;padding-right:4px}.item{border:1px solid #d1fae5;border-radius:32px;background:linear-gradient(135deg,#fff,rgba(236,253,245,.82));padding:20px;box-shadow:0 16px 34px rgba(6,78,59,.07);transition:.2s;cursor:pointer}.item:hover{transform:translateY(-3px);box-shadow:0 22px 46px rgba(6,78,59,.11)}.item-top{display:flex;justify-content:space-between;gap:12px}.name{font-size:18px;font-weight:900;color:#022c22}.time{display:inline-block;margin-left:8px;background:#ecfccb;color:#4d7c0f;border-radius:999px;padding:4px 10px;font-size:12px;font-weight:800}.meta{margin-top:8px;font-size:14px;font-weight:700;color:rgba(6,78,59,.7)}.summary{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;margin-top:14px;font-size:14px;line-height:1.7;color:rgba(2,44,34,.72)}@media(max-width:1100px){.page{padding:28px 24px}.layout,.tool{grid-template-columns:1fr}.result-card{min-height:auto}}@media(max-width:640px){.top{align-items:flex-start}.dark-pill{display:none}.steps{grid-template-columns:1fr}.card{padding:22px;border-radius:30px}.item-top,.history-top,.result-top{flex-direction:column;align-items:flex-start}.copy,.clear{width:100%}}
+  </style>
+</head>
+<body>
+  <main class="page">
+    <div class="glow g1"></div><div class="glow g2"></div><div class="grid-bg"></div>
+    <div class="top"><div class="pill">✨ 教学反馈效率工具</div><div class="pill dark-pill">历史查询 · 本地保存</div></div>
+    <section class="layout">
+      <div class="hero">
+        <div class="tag">Weekly Report Maker</div>
+        <h1>清新周报，一键生成。</h1>
+        <p class="desc">输入学生姓名、考勤天数和作业完成数，系统会自动整理成一段适合发送给家长或归档记录的周报文字，并保存最近 10 条历史记录方便查询。</p>
+        <div class="steps"><div class="step"><div class="num">01</div><div class="step-name">填写信息</div></div><div class="step"><div class="num">02</div><div class="step-name">生成周报</div></div><div class="step"><div class="num">03</div><div class="step-name">查询历史</div></div></div>
+      </div>
+      <div class="tool">
+        <form class="card" id="reportForm">
+          <div class="card-head"><div class="icon">📄</div><div><h2>填写本周数据</h2><p class="small">生成后会自动保存到历史</p></div></div>
+          <div class="form-fields">
+            <label><span>学生姓名</span><input id="studentName" placeholder="例如：小明" /></label>
+            <label><span>考勤天数</span><input id="attendanceDays" type="number" min="0" placeholder="例如：5" /></label>
+            <label><span>作业完成数</span><input id="homeworkCount" type="number" min="0" placeholder="例如：6" /></label>
+          </div>
+          <p class="error" id="error" style="display:none"></p>
+          <button class="primary" type="submit">生成周报文字</button>
+        </form>
+        <section class="card result-card">
+          <div class="result-top"><div><p class="muted-title">生成结果</p><h2>本周反馈</h2></div><button class="copy" id="copyCurrent" disabled>📋 复制</button></div>
+          <div class="result-box" id="resultBox"><div class="empty"><div class="empty-icon">📄</div><p><b>等待生成周报</b></p><p class="small">填写左侧信息后点击生成，这里会显示可复制的完整周报。</p></div></div>
+          <div class="status" id="status"></div>
+        </section>
+        <section class="card history">
+          <div class="history-top"><div class="card-head" style="margin-bottom:0"><div class="icon">🕘</div><div><p class="muted-title">历史信息查询</p><h2 id="historyTitle">最近 0 条记录</h2></div></div><button class="clear" id="clearHistory" disabled>🗑️ 清空历史</button></div>
+          <label class="search-wrap"><span class="search-icon">🔍</span><input id="historyQuery" placeholder="按学生姓名或周报内容搜索" /></label>
+          <div class="list" id="historyList"></div>
+        </section>
+      </div>
+    </section>
+  </main>
+  <script>
+    const KEY='student-weekly-report-history'; const LIMIT=10; let report=''; let historyItems=readHistory();
+    const $=id=>document.getElementById(id);
+    function readHistory(){try{return JSON.parse(localStorage.getItem(KEY)||'[]')}catch{return []}}
+    function saveHistory(){localStorage.setItem(KEY,JSON.stringify(historyItems))}
+    function buildReport(name,days,homework){const attendanceText=days>=5?'出勤表现非常稳定':days>=3?'本周出勤情况整体良好':'本周出勤还可以继续提升';const homeworkText=homework>=5?'作业完成积极，学习节奏保持得很好':homework>=3?'作业完成情况较好，能够跟上本周学习安排':'作业完成数量偏少，后续可以加强练习与巩固';return `${name}同学本周共考勤${days}天，${attendanceText}；本周完成作业${homework}次，${homeworkText}。整体来看，${name}同学能够参与课堂学习并逐步积累知识点，希望下周继续保持良好的学习习惯，按时完成练习，争取取得更明显的进步。`}
+    function formatTime(value){return new Intl.DateTimeFormat('zh-CN',{month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit'}).format(new Date(value))}
+    function setStatus(text,type='success'){$('status').innerHTML=text?`<span class="${type}">${text}</span>`:''}
+    function setError(text){$('error').style.display=text?'block':'none';$('error').textContent=text}
+    function renderReport(text){report=text;$('copyCurrent').disabled=!text;$('resultBox').innerHTML=text?`<p class="report-text">${escapeHtml(text)}</p>`:`<div class="empty"><div class="empty-icon">📄</div><p><b>等待生成周报</b></p><p class="small">填写左侧信息后点击生成，这里会显示可复制的完整周报。</p></div>`}
+    function escapeHtml(text){return text.replace(/[&<>"]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m]))}
+    function renderHistory(){const query=$('historyQuery').value.trim().toLowerCase();const filtered=query?historyItems.filter(item=>item.studentName.toLowerCase().includes(query)||item.report.toLowerCase().includes(query)):historyItems;$('historyTitle').textContent=`最近 ${historyItems.length} 条记录`;$('clearHistory').disabled=!historyItems.length;if(!historyItems.length){$('historyList').innerHTML='<div class="empty" style="padding:32px;border:1px dashed #bbf7d0;border-radius:28px;background:rgba(236,253,245,.65)">还没有历史记录，生成周报后会自动保存到这里。</div>';return}if(!filtered.length){$('historyList').innerHTML='<div class="empty" style="padding:32px;border:1px dashed #bbf7d0;border-radius:28px;background:rgba(236,253,245,.65)">没有对应的内容，换个关键词试试。</div>';return}$('historyList').innerHTML=filtered.map(item=>`<article class="item" data-id="${item.id}"><div class="item-top"><div><span class="name">${escapeHtml(item.studentName)}同学</span><span class="time">${formatTime(item.createdAt)}</span><div class="meta">考勤 ${item.attendanceDays} 天 · 作业 ${item.homeworkCount} 次</div></div><button class="copy history-copy" data-id="${item.id}">📋 复制</button></div><p class="summary">${escapeHtml(item.report)}</p></article>`).join('')}
+    $('reportForm').addEventListener('submit',e=>{e.preventDefault();const name=$('studentName').value.trim();const days=Number($('attendanceDays').value);const homework=Number($('homeworkCount').value);if(!name)return setError('请输入学生姓名');if($('attendanceDays').value===''||days<0||Number.isNaN(days))return setError('请输入有效的考勤天数');if($('homeworkCount').value===''||homework<0||Number.isNaN(homework))return setError('请输入有效的作业完成数');setError('');const text=buildReport(name,days,homework);const item={id:crypto.randomUUID?crypto.randomUUID():String(Date.now()),studentName:name,attendanceDays:days,homeworkCount:homework,report:text,createdAt:new Date().toISOString()};historyItems=[item,...historyItems].slice(0,LIMIT);saveHistory();renderReport(text);renderHistory();setStatus('')});
+    $('copyCurrent').addEventListener('click',async()=>{if(!report)return;try{await navigator.clipboard.writeText(report);setStatus('已复制到剪贴板')}catch{setStatus('复制失败，请手动选中文字复制','fail')}});
+    $('historyQuery').addEventListener('input',renderHistory);
+    $('clearHistory').addEventListener('click',()=>{if(!historyItems.length)return;if(confirm('确定要清空所有历史记录吗？此操作无法撤销。')){historyItems=[];localStorage.removeItem(KEY);$('historyQuery').value='';renderHistory()}});
+    $('historyList').addEventListener('click',async e=>{const copy=e.target.closest('.history-copy');if(copy){e.stopPropagation();const item=historyItems.find(x=>x.id===copy.dataset.id);if(!item)return;try{await navigator.clipboard.writeText(item.report);renderReport(item.report);setStatus('已复制到剪贴板')}catch{setStatus('复制失败，请手动选中文字复制','fail')}return}const article=e.target.closest('.item');if(article){const item=historyItems.find(x=>x.id===article.dataset.id);if(item){renderReport(item.report);setStatus('')}}});
+    renderHistory();
+  </script>
+</body>
 </html>
